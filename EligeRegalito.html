@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Adivina</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #FFE6E6;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .inicio, .container {
+            width: 90vw;
+            max-width: 500px;
+            background-color: #47B0C4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .boton-inicio {
+            background-color: #FF6B6B;
+            color: #FFFFFF;
+            font-size: 2vh;
+            padding: 1vh 3vh;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton-inicio:hover {
+            background-color: #FF5252;
+        }
+
+        .span-inicio {
+            font-size: 2.5vh;
+            color: #4A4A4A;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .mitad {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 20px;
+            justify-items: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .corazon-container {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .corazon {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .corazon.partido {
+            transform: scale(1.3) rotate(15deg);
+        }
+
+        .mensaje {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 1.6vh;
+            color: #D6336C;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .mensaje.mostrar {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="inicio" id="inicio">
+        <span class="span-inicio">¡Hola, Nata! 🤗</span>
+        <span class="span-inicio">Hoy decidirás un regalito por el dia de amor y amistad 😳</span>
+        <img style="width: 60%;" src="https://res.cloudinary.com/dmz8e9rsx/image/upload/t_perrito_amor/v1738548499/perrito-valentin-dachshund-fondo-transparente-vidrio-forma-corazon_1046662-82158_fqnwas.png" alt="Imagen amorosa">
+        <button class="boton-inicio" onclick="mostrarRegalos()">¡Quiero mi regalo!</button>
+    </div>
+
+    <div class="container" id="container" style="display: none;">
+        <span class="span-inicio">Elige un objeto y mándame una captura del resultado ❤️</span>
+        <div class="mitad">
+            <div class="corazon-container" onclick="mostrarMensaje(this, '¡Ir a comer algo!')">
+                <img src="https://res.cloudinary.com/dmz8e9rsx/image/upload/t_floresrojas_png/v1738552612/png-transparent-flower-bouquet-birthday-cake-gift-red-roses-bouquet-red-rose-bouquet-flower-arranging-floribunda-wedding_jrpbpx.png" class="corazon">
+                <div class="mensaje">¡Ir a comer algo 🍕!</div>
+            </div>
+            <div class="corazon-container" onclick="mostrarMensaje(this, '¡Un regalo pequeño!')">
+                <img src="https://res.cloudinary.com/dmz8e9rsx/image/upload/t_flores_png/v1738552613/png-transparent-blue-roses-blue-rose-flower-bouquet-cut-flowers-blue-flower-blue-plant-stem-color_q7tos9.png" class="corazon">
+                <div class="mensaje">¡Un regalo pequeño 🎁!</div>
+            </div>
+            <div class="corazon-container" onclick="mostrarMensaje(this, '¡Una carta!')">
+                <img src="https://res.cloudinary.com/dmz8e9rsx/image/upload/t_floresrojas_png/v1738552610/png-transparent-flower-yellow-rose-yellow-roses-three-yellow-flowers-flower-arranging-image-file-formats-desktop-wallpaper-thumbnail_snlrm6.png" class="corazon">
+                <div class="mensaje">¡Una carta 🥰!</div>
+            </div>
+            <div class="corazon-container" onclick="mostrarMensaje(this, '¡Puedes elegir 2 🥰')">
+                <img  src="https://res.cloudinary.com/dmz8e9rsx/image/upload/t_corazon_madera_blanca/v1738552607/Corazon_hecho_de_madera_blanca_png_ueto1g.png" class="corazon">
+                <div class="mensaje">¡Puedes elegir 2 🤗!</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarRegalos() {
+            document.getElementById('inicio').style.display = 'none';
+            document.getElementById('container').style.display = 'flex';
+        }
+
+        function mostrarMensaje(elemento, mensaje) {
+            const corazon = elemento.querySelector('.corazon');
+            const mensajeElement = elemento.querySelector('.mensaje');
+            corazon.classList.add('partido');
+            mensajeElement.textContent = mensaje;
+            mensajeElement.classList.add('mostrar');
+
+            setTimeout(() => {
+                mensajeElement.classList.remove('mostrar');
+                corazon.classList.remove('partido');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
